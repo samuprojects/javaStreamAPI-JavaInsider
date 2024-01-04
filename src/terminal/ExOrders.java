@@ -2,6 +2,8 @@ package terminal;
 
 import terminal.OrderSystem.Order;
 
+import java.util.Comparator;
+
 import static java.util.stream.Collectors.*;
 import static terminal.OrderSystem.Category.TOY;
 
@@ -11,7 +13,7 @@ public class ExOrders {
         queryA();
         queryB();
         queryC();
-//        queryD();
+        queryD();
 //        queryE();
     }
 
@@ -37,6 +39,9 @@ public class ExOrders {
 
     private static void queryD(){
         System.out.println("IDs de pedidos com preço acima de 500 ordenados por data");
+
+        // filtramos os preços maiores com filter e o sorted para ordenar por data com map no final para mapear por ID
+        OrderSystem.allOrders().stream().filter(o -> o.price() > 500).sorted(Comparator.comparing(Order::orderDate)).mapToLong(Order::id).forEach(System.out::println);
     }
 
     private static void queryE(){

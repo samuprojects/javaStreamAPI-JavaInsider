@@ -14,7 +14,7 @@ public class ExOrders {
         queryB();
         queryC();
         queryD();
-//        queryE();
+        queryE();
     }
 
     private static void queryA(){
@@ -46,5 +46,8 @@ public class ExOrders {
 
     private static void queryE(){
         System.out.println("Preço total pago por cliente em todos os pedidos");
+
+        // após organizar por cliente com o groupingBy importado estaticamente para reduzir o código, seguir somando os preços dos produtos de cada um com summingDouble
+        OrderSystem.allOrders().stream().collect(groupingBy(o -> o.customer().name(), summingDouble(Order::price))).forEach((k, v) -> System.out.println( k + " => " + v));
     }
 }

@@ -1,34 +1,22 @@
 package terminal;
 
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
+
 @SuppressWarnings("ALL")
 public class ExOrders {
-
-    /*
-    * Considerar os records:
-    * Product(String name, Category category, double price)
-    * Order(Long id, Customer customer, List<Product> products, LocalDate orderDate)
-    * public record Customer (String name)
-    *
-    * enum Category
-    * TOY, ELECTRONIC, STATIONARY
-    *
-    * Retornar usando Stream API: Os pedidos de cada cliente, Custo total de cada pedido,
-    * Nomes dos clientes que compraram brinquedos, IDs de pedidos com preço acima de 500 ordenados por data,
-    * Preço total pago por cliente em todos os seus pedidos.
-    *
-    * Criar conjuntos de Product e Order para testar as queries
-    * */
-
     public static void main(String[] args) {
         queryA();
-        queryB();
-        queryC();
-        queryD();
-        queryE();
+//        queryB();
+//        queryC();
+//        queryD();
+//        queryE();
     }
 
     private static void queryA(){
         System.out.println("Pedidos por cliente");
+        // se quiser com detalhamento basta remover o counting do Collector que foi importato estaticamente para economizar código
+        OrderSystem.allOrders().stream().collect(groupingBy(o -> o.customer().name(), counting())).forEach((k, v) -> System.out.println(k + " => " + v));
     }
 
     private static void queryB(){

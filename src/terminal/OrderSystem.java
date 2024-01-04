@@ -5,11 +5,14 @@ import java.util.List;
 
 import static terminal.OrderSystem.Category.*;
 
-@SuppressWarnings("ALL")
 public class OrderSystem {
 
     public record Product(String name, Category category, double price) {}
-    public record Order(Long id, Customer customer, List<Product> products, LocalDate orderDate) {}
+    public record Order(Long id, Customer customer, List<Product> products, LocalDate orderDate) {
+        public double price() {
+            return products.stream().mapToDouble(Product::price).sum();
+        }
+    }
     public record Customer (String name) {}
 
     public enum Category {

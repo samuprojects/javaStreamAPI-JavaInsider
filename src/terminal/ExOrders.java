@@ -1,13 +1,14 @@
 package terminal;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
+import terminal.OrderSystem.Order;
+
+import static java.util.stream.Collectors.*;
 
 @SuppressWarnings("ALL")
 public class ExOrders {
     public static void main(String[] args) {
         queryA();
-//        queryB();
+        queryB();
 //        queryC();
 //        queryD();
 //        queryE();
@@ -21,6 +22,9 @@ public class ExOrders {
 
     private static void queryB(){
         System.out.println("Custos por pedido");
+
+        // foi criado um método no record de Order para somar os preços dos produtos e facilitar o custo por pedido aqui
+        OrderSystem.allOrders().stream().collect(groupingBy(Order::id, summingDouble(Order::price))).forEach((k, v) -> System.out.println(k + " => " + v));
     }
 
     private static void queryC(){

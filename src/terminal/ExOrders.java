@@ -3,13 +3,14 @@ package terminal;
 import terminal.OrderSystem.Order;
 
 import static java.util.stream.Collectors.*;
+import static terminal.OrderSystem.Category.TOY;
 
 @SuppressWarnings("ALL")
 public class ExOrders {
     public static void main(String[] args) {
         queryA();
         queryB();
-//        queryC();
+        queryC();
 //        queryD();
 //        queryE();
     }
@@ -29,6 +30,9 @@ public class ExOrders {
 
     private static void queryC(){
         System.out.println("Nomes dos clientes que compraram brinquedos");
+
+        // anyMatch filtra quem é da categoria TOY trazendo quem for veiradeiro para a condição e depois mapeamos os clientes. Usado distintc para eliminar duplicidades
+        OrderSystem.allOrders().stream().filter(o -> o.products().stream().anyMatch(p -> p.category() == TOY)).map(o -> o.customer().name()).distinct().forEach(System.out::println);
     }
 
     private static void queryD(){
